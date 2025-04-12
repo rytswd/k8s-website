@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes v1.33: TBC'
-date: 2025-04-23
+date: 2025-04-23T10:30:00-08:00
 draft: true
 slug: kubernetes-v1-33-release
 author: >
