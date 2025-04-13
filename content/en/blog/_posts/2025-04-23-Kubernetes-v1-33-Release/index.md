@@ -20,7 +20,9 @@ Kubernetes.
 
 ## Release theme and logo
 
-<Logo image size is recommended to be no more than 2160px\> {{\< figure src="/images/blog/YYYY-MM-DD-kubernetes-1.XX-release/k8s-1.XX.png" alt="Kubernetes v1.XX logo" class="release-logo" \>}}
+<NOTE: Logo image size is recommended to be no more than 2160px>
+
+{{< figure src="k8s-1.33.png" alt="Kubernetes v1.33 logo: XX" class="release-logo" >}}
 
 ## Spotlight on key updates
 
