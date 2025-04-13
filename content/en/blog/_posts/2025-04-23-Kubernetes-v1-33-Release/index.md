@@ -48,6 +48,11 @@ that is eventually reduced once the initial setup is complete.
 
 This work was done as part of [KEP-1287: In-Place Update of Pod Resources](https://kep.k8s.io/1287) led by SIG Node and SIG Autoscaling.
 
+### Alpha: New configuration option for kubectl with `.kuberc` for user preferences
+
+`kubectl` introduces an entirely new opt-in configuration file `.kuberc` for user preferences, allowing users to manage credentials and host information of clusters separately. During the alpha stage, users can enable this by having the environmental variable of `KUBECTL_KUBERC=true` set, along with the `.kuberc` configuration file, which is under `~/.kube/kuberc` by default. This can also be run by using the argument of `--kuberc`, like `kubectl --kuberc /var/kube/rc`.
+
+This work was done as part of [KEP-3104: Separate kubectl user preferences from cluster configs](https://kep.k8s.io/3104) led by SIG CLI.
 
 ## Features graduating to Stable
 
@@ -299,12 +304,6 @@ This work was done as part of [KEP-5109: Split L3 Cache Topology Awareness in CP
 This feature adds support for providing PSI stats and metrics using cgroupv2. It can be used to detect resource shortages and provide nodes with more granular control for pod scheduling.
 
 This work was done as part of [KEP-4205: Support PSI based on cgroupv2](https://kep.k8s.io/4205) led by SIG Node.
-
-### New configuration option for kubectl with `.kuberc` for user preferences
-
-`kubectl` introduces an entirely new opt-in configuration file `.kuberc` for user preferences, allowing users to manage credentials and host information of clusters separately. During the alpha stage, users can enable this by having the environmental variable of `KUBECTL_KUBERC=true` set, along with the `.kuberc` configuration file, which is under `~/.kube/kuberc` by default. This can also be run by using the argument of `--kuberc`, like `kubectl --kuberc /var/kube/rc`.
-
-This work was done as part of [KEP-3104: Separate kubectl user preferences from cluster configs](https://kep.k8s.io/3104) led by SIG CLI.
 
 ### Enable secret-less image pull with kubelet
 
