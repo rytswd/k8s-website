@@ -14,6 +14,10 @@ Similar to previous releases, the release of Kubernetes v1.33 introduces new sta
 
 This release consists of 64 enhancements. Of those enhancements, 24 have graduated to Stable, 20 are entering Beta, and 18 have entered in Alpha.
 
+There are also several notable [deprecations and removals](#deprecations-and-removals)
+that in this release; make sure to read about those if you already run an older version of
+Kubernetes.
+
 ## Release theme and logo
 
 <Logo image size is recommended to be no more than 2160px\> {{\< figure src="/images/blog/YYYY-MM-DD-kubernetes-1.XX-release/k8s-1.XX.png" alt="Kubernetes v1.XX logo" class="release-logo" \>}}
@@ -22,7 +26,7 @@ This release consists of 64 enhancements. Of those enhancements, 24 have graduat
 
 *This is a selection of some of the improvements that are now stable following the v1.33 release.*
 
-### Backoff limits per index for indexed jobs
+### Backoff limits per index for indexed Jobs
 
 ​This release introduces a feature that allows setting backoff limits on a per-index basis for Indexed Jobs. Traditionally, the `backoffLimit` parameter in Kubernetes Jobs specifies the number of retries before considering the entire Job as failed. With this enhancement, each index within an Indexed Job can have its own backoff limit, enabling more granular control over retry behaviors for individual tasks. This approach ensures that the failure of specific indices doesn't prematurely terminate the entire Job, allowing other indices to continue processing independently.
 
@@ -40,7 +44,7 @@ This enhancement introduces features such as including a unique token identifier
 
 This work was done as part of [KEP-4193: Bound service account token improvements](https://kep.k8s.io/4193) led by SIG Auth.
 
-### Add subresource support to kubectl
+### Subresource support in kubectl
 
 A `--subresource` argument is available for kubectl subcommands such as `get`, `patch`, `edit`, `apply` and `replace` to fetch and update subresources for all resources that support them. To learn more about the subresources supported, visit the [kubectl reference](/docs/reference/kubectl/conventions/#subresources).
 
@@ -48,7 +52,11 @@ This work was done as part of [KEP-2590: Add subresource support to kubectl](htt
 
 ### Multiple Service CIDRs
 
-This enhancement introduces a new implementation of allocation logic for Service IPs. Across the whole cluster, every Service ClusterIP must be unique and trying to create a service with a specific ClusterIP that has already been allocated will return an error. This new allocator logic uses two new API Objects: ServiceCIDR and IPAddress, allowing users to dynamically increase the number of Service IPS available by creating new ServiceCIDRs.
+This enhancement introduced a new implementation of allocation logic for Service IPs. Across the whole cluster, every Service of `type: ClusterIP` must have a unique IP address assigned to it.
+Trying to create a Service with a specific cluster IP that has already been allocated will return an error.
+The updated IP address allocator logic uses two newly stable API objects: ServiceCIDR and IPAddress.
+Now generally available, these APIs allow cluster administrators to dynamically increase the number of
+IP addresses available for `type: ClusterIP` Services (by creating new ServiceCIDR objects).
 
 This work was done as part of [KEP-1880: Multiple Service CIDRs](https://kep.k8s.io/1880) led by SIG Network.
 
@@ -70,23 +78,30 @@ This feature adds policy options to the CPU Manager, enabling it to reject workl
 
 This work was done as part of [KEP-2625: node: cpumanager: add options to reject non SMT-aligned workload](https://kep.k8s.io/2625) led by SIG Node.
 
-### Define Pod affinity or anti-affinity using `matchLabelKeys` and `mismatchLabelKeys`
+### Defining Pod affinity or anti-affinity using `matchLabelKeys` and `mismatchLabelKeys`
 
-Fields `matchLabelKeys` and `mismatchLabelKeys` are available in PodAffinityTerm, enabling users to finely control the scope where Pods are expected to co-exist (PodAffinity) or not (PodAntiAffinity). These new options complement the existing `labelSelector`. The newly introduced fields facilitate enhanced scheduling for versatile rolling updates, as well as isolation of services managed by tools or controllers based on global configurations.
+Fields `matchLabelKeys` and `mismatchLabelKeys` are available in within the `affinityTerm` field of a Pod,
+enabling users to finely control the scope where Pods are expected to co-exist (Affinity) or not (AntiAffinity).
+These newly stable options complement the existing `labelSelector` mechanism.
+The affinity fields facilitate enhanced scheduling for versatile rolling updates, as well as
+isolation of services managed by tools or controllers based on global configurations.
 
 This work was done as part of [KEP-3633: Introduce MatchLabelKeys to Pod Affinity and Pod Anti Affinity](https://kep.k8s.io/3633) led by SIG Scheduling.
 
-### Consider Taints and Tolerations when calculating PodTopologySpread skew
+### Considering taints and tolerations when calculating Pod topology sread skew
 
 This enhances `PodTopologySpread` by introducing two new fields: `nodeAffinityPolicy` and `nodeTaintsPolicy`. These fields allow users to specify whether node affinity rules and node taints should be considered when calculating pod distribution across nodes. By default, `nodeAffinityPolicy` is set to `Honor`, meaning only nodes matching the pod's node affinity or selector are included in the distribution calculation. The `nodeTaintsPolicy` defaults to `Ignore`, indicating that node taints are not considered unless specified. This enhancement provides finer control over pod placement, ensuring that pods are scheduled on nodes that meet both affinity and taint toleration requirements, thereby preventing scenarios where pods remain pending due to unsatisfied constraints.
 
 This work was done as part of [KEP-3094: Take taints/tolerations into consideration when calculating PodTopologySpread skew](https://kep.k8s.io/3094) led by SIG Scheduling.
 
-### Volume Populator
+### Volume populators
 
-After making beta release in v1.24, VolumePopulator is graduating to GA in this release. This introduces a way to allow users to pre-populate volumes with data from various sources, not just PVC clones or volume snapshots. The key idea is to introduce a new field, `DataSourceRef`, on PersistentVolumeClaims (PVCs). This field will be more flexible than the existing `DataSource` field, allowing for custom resources (CRDs) to be used as data sources.
+After making beta release in v1.24, _volume populators_ have graduated to GA in this release. This newly stable feature provides a way to allow users to pre-populate volumes with data from various sources, and not
+just from PersistentVolumeClaim (PVC) clones or volume snapshots.
+The mechanism relies on the `dataSourceRef` field within a PersistentVolumeClaim. This field offers more flexibility than the existing `dataSource` field, and allows for custom resources to be used as data sources.
 
-A new controller, `volume-data-source-validator`, will validate these data sources, and a new CRD, `VolumePopulator`, will allow volume populator controllers to register the types of data sources they support.
+A special controller, `volume-data-source-validator`, validates these data source references, alongside a CustomResourceDefinition (CRD) for an API kind named VolumePopulator.
+The VolumePopulator API allows volume populator controllers to register the types of data sources they support. You need to set up your cluster with the appropriate CRD in order to use volume populators.
 
 This work was done as part of [KEP-1495: Generic data populators](https://kep.k8s.io/1495) led by SIG Storage.
 
@@ -124,7 +139,7 @@ Preemption ensures higher-priority pods get the resources they need by evicting 
 
 This work was done as part of [KEP-4832: Asynchronous preemption in the scheduler](https://kep.k8s.io/4832) led by SIG Scheduling.
 
-### ClusterTrustBundles (previously Trust Anchor Sets)
+### ClusterTrustBundles
 
 ClusterTrustBundle, a cluster-scoped resource designed for holding X.509 trust anchors (root certificates), graduates to beta in v1.33. This resource makes it easier for in-cluster certificate signers to publish and communicate X.509 trust anchors to cluster workloads.
 
@@ -132,7 +147,11 @@ This work was done as part of [KEP-3257: ClusterTrustBundles (previously Trust A
 
 ### Fine-grained SupplementalGroups control
 
-SupplementalGroupsPolicy, introduced in v1.31, graduates to beta in v1.33 and gets enabled by default. The SupplementalGroupsPolicy field in Pod's Security Context offers two options: the default Merge policy maintains backward compatibility by combining specified groups with those from the container image's `/etc/group` file, while the new Strict policy applies only to explicitly defined groups. This feature addresses security concerns where implicit group memberships from container images could lead to unintended file access permissions and bypass policy controls.
+Introduced in v1.31, this feature graduates to beta in v1.33 and is now enabled by default. Provided that your cluster has the `SupplementalGroupsPolicy` fearture gate
+enabled, the `supplementalGroupsPolicy` field within a Pod's `securityContext` offers two options:
+the default Merge policy maintains backward compatibility by combining specified groups with those from the container image's `/etc/group` file, while the new Strict policy applies only to explicitly defined groups.
+
+This enhancement addresses security concerns where implicit group memberships from container images could lead to unintended file access permissions and bypass policy controls.
 
 This work was done as part of [KEP-3619: Fine-grained SupplementalGroups control](https://kep.k8s.io/3619) led by SIG Node.
 
@@ -162,7 +181,11 @@ When provisioning a Pod, you can use various resources such as Deployment, State
 
 But what if you could dynamically update the resource configuration for your existing Pods without restarting them?
 
-The [KEP-1287](https://kep.k8s.io/1287) is precisely to allow such in-place Pod updates. It opens up various possibilities of vertical scale-up for stateful processes without any downtime, seamless scale-down when the traffic is low, and even allocating larger resources during startup that is eventually reduced once the initial setup is complete. This was released as alpha in v1.27, and is expected to land as beta in v1.33.
+The [KEP-1287](https://kep.k8s.io/1287) is precisely to allow such in-place Pod updates.
+It opens up various possibilities of vertical scale-up for stateful processes without any downtime,
+seamless scale-down when the traffic is low, and even allocating larger resources during startup
+that is eventually reduced once the initial setup is complete.
+This was released as alpha in v1.27, and has graduated to beta in v1.33
 
 This work was done as part of [KEP-1287: In-Place Update of Pod Resources](https://kep.k8s.io/1287) led by SIG Node and SIG Autoscaling.
 
@@ -172,17 +195,24 @@ This feature adds a new policy option for the CPU Manager to distribute CPUs acr
 
 This work was done as part of [KEP-2902: Add CPUManager policy option to distribute CPUs across NUMA nodes instead of packing them](https://kep.k8s.io/2902) led by SIG Node.
 
-### Introducing Sleep Action for PreStop Hook
+### Zero-second sleeps for container PreStop hooks
 
-This feature introduces a `Sleep` action for the `PreStop` lifecycle hook in Kubernetes, allowing containers to pause for a specified duration before termination. This provides a straightforward method to delay container shutdown, facilitating tasks such as connection draining or cleanup operations.
+Kubernetes 1.29 introduced a Sleep action for the `preStop` lifecycle hook in Pods, allowing containers to pause for a specified duration before termination.
+This provides a straightforward method to delay container shutdown, facilitating tasks such as connection draining or cleanup operations.
 
 The `Sleep` action in the `PreStop` hook can also accept a zero-second duration. This allows for defining a no-op `PreStop` hook, which can be useful in scenarios where a `PreStop` hook is required but no delay is desired.
 
 This work was done as part of [KEP-3960: Introducing Sleep Action for PreStop Hook](https://kep.k8s.io/3960) and [KEP-4818: Allow zero value for Sleep Action of PreStop Hook](https://kep.k8s.io/4818) led by SIG Node.
 
-### Declarative Validation of Kubernetes-Native Types with validation-gen
+### Declarative validation of Kubernetes-native types
 
-This feature enhances the validation of Kubernetes native types by introducing `validation-gen`, a tool for generating declarative validation rules. The goal is to improve the robustness and maintainability of API validations by enabling developers to specify validation constraints declaratively, reducing manual coding errors and ensuring consistency across the codebase.
+Behind the scenes, the internals of Kubernetes are starting to use a new mechanism
+for validating objects and changes to objects.
+Kubernetes v1.33 introduces `validation-gen`, an internal tool that Kubernetes
+contributors use for generating
+declarative validation rules. The overall goal is to improve the robustness and maintainability of API validations
+by enabling developers to specify validation constraints declaratively, reducing manual coding errors
+and ensuring consistency across the codebase.
 
 This work was done as part of [KEP-5073: Declarative Validation Of Kubernetes Native Types With validation-gen](https://kep.k8s.io/5073) led by SIG API Machinery.
 
@@ -190,9 +220,9 @@ This work was done as part of [KEP-5073: Declarative Validation Of Kubernetes Na
 
 *This is a selection of some of the improvements that are now alpha following the v1.33 release.*
 
-### Configurable tolerance for Horizontal Pod Autoscalers
+### Configurable tolerance for HorizontalPodAutoscalers
 
-This feature introduces configurable tolerance for Horizontal Pod Autoscalers to dampen scaling reactions to small metric variations.
+This feature introduces configurable tolerance for HorizontalPodAutoscalers to dampen scaling reactions to small metric variations.
 
 This work was done as a part of [KEP-4951: Configurable tolerance for Horizontal Pod Autoscalers](https://kep.k8s.io/4951) led by SIG Autoscaling.
 
@@ -202,13 +232,17 @@ Introduced as alpha1 in v1.32, this feature provides a set of kubelet level conf
 
 This work was done as part of [KEP-4603: Tune CrashLoopBackOff](https://kep.k8s.io/4603) led by SIG Node.
 
-### Custom Container Stop Signals
+### Custom container stop signals
+``
 
-Before Kubernetes v1.33, stop signals could only be set in container image definitions (for example, via STOPSIGNAL instruction), requiring additional image builds to modify termination behavior. By enabling the `ContainerStopSignals` feature gate in Kubernetes v1.33, users can now define custom stop signals directly in Pod specifications. The stop signal is defined in the container's `lifecycle.stopSignal` field and requires the Pod's `spec.os.name` field to be present. If unspecified, containers fall back to the image-defined signal or the container runtime default (typically SIGTERM).
+Before Kubernetes v1.33, stop signals could only be set in container image definitions (for example, via the `StopSignal` configuration field in the image metatadata).
+If you wanted to modify termination behavior, you needed to build a custom container imnage. By enabling the `ContainerStopSignals` feature gate in Kubernetes v1.33, you can now define custom stop signals directly within Pod specifications.
+The stop signal is defined in the container's `lifecycle.stopSignal` field and requires the Pod's `spec.os.name` field to be present.
+If unspecified, containers fall back to the image-defined stop signal where present, or the container runtime default otherwise (for Linux, this is typically SIGTERM).
 
 This work was done as part of [KEP-4960: Container Stop Signals](https://kep.k8s.io/4960) led by SIG Node.
 
-### DRA Enhancements Galore!
+### DRA enhancements galore!
 
 Kubernetes v1.33 continues to develop Dynamic Resource Allocation (DRA) with features designed for today’s complex infrastructures. DRA is an API for requesting and sharing resources between pods and containers inside a pod. Typically those resources are devices such as GPUs, FPGAs, and network adapters.
 
@@ -241,7 +275,7 @@ Before this change, the `metadata.generation` field was unused in pods. Along wi
 
 This work was done as part of [KEP-5067: Pod Generation](https://kep.k8s.io/5067) led by SIG Node.
 
-### Support split L3 cache architecture with kubelet’s CPU Manager
+### Support for split level 3 cache architecture with kubelet’s CPU Manager
 
 The previous kubelet’s CPU Manager is unaware of split L3 cache architecture (also known as Last Level Cache, or LLC), and can potentially distribute CPU assignments without taking the split L3 cache into account, causing a noisy neighbor problem. This feature improves the CPU Manager to better assign CPU cores for better performance.
 
@@ -294,7 +328,7 @@ This release includes a total of X enhancements promoted to stable:
 
 ### Deprecations and removals
 
-As Kubernetes develops and matures, features may be deprecated, removed, or replaced with better ones for the project's overall health. See the Kubernetes [deprecation and removal policy](http:///docs/reference/using-api/deprecation-policy/) for more details on this process. Many of these deprecations and removals were announced in the [Deprecations and Removals blog](https://kubernetes.io/blog/2025/03/26/kubernetes-v1-33-upcoming-changes/).
+As Kubernetes develops and matures, features may be deprecated, removed, or replaced with better ones for the project's overall health. See the Kubernetes [deprecation and removal policy](/docs/reference/using-api/deprecation-policy/) for more details on this process. Many of these deprecations and removals were announced in the [Deprecations and Removals blog](/blog/2025/03/26/kubernetes-v1-33-upcoming-changes/).
 
 #### Deprecation of the stable Endpoints API
 
@@ -306,7 +340,11 @@ You can find more in [KEP-4974: Deprecate v1.Endpoints](https://kep.k8s.io/4974)
 
 #### Removal of kube-proxy version information in node status
 
-Following its deprecation in v1.31, as highlighted in the [release announcement](/blog/2024/07/19/kubernetes-1-31-upcoming-changes/#deprecation-of-status-nodeinfo-kubeproxyversion-field-for-nodes-kep-4004-https-github-com-kubernetes-enhancements-issues-4004), the `status.nodeInfo.kubeProxyVersion` field will be removed in v1.33. This field was set by kubelet, but its value was not consistently accurate. As it has been disabled by default since v1.31, the v1.33 release will remove this field entirely.
+Following its deprecation in v1.31, as highlighted in the v1.31 [release announcement](/blog/2024/07/19/kubernetes-1-31-upcoming-changes/#deprecation-of-status-nodeinfo-kubeproxyversion-field-for-nodes-kep-4004-https-github-com-kubernetes-enhancements-issues-4004),
+the `.status.nodeInfo.kubeProxyVersion` field for Nodes was removed in v1.33.
+
+This field was set by kubelet, but its value was not consistently accurate.
+As it has been disabled by default since v1.31, the v1.33 release has removed this field entirely.
 
 You can find more in [KEP-4004: Deprecate status.nodeInfo.kubeProxyVersion field](https://kep.k8s.io/4004).
 
@@ -317,21 +355,21 @@ The original implementation landed as alpha with v1.26, but as it faced unexpect
 and alternative solutions were available, the Kubernetes project has decided to withdraw the associated
 KEP. We're expecting to see support fully removed in v1.33.
 
-Please note that this does not affect [HostProcess containers](https://kubernetes.io/docs/tasks/configure-pod-container/create-hostprocess-pod/), which provides host network as well as host level access. This withdrawal was about only giving the host network, which was never stable due to technical limitations with Windows networking logic.
+Please note that this does not affect [HostProcess containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/), which provides host network as well as host level access. This withdrawal was about only giving the host network, which was never stable due to technical limitations with Windows networking logic.
 
 You can find more in [KEP-3503: Host network support for Windows pods](https://kep.k8s.io/3503).
 
 ### Release notes
 
-Check out the full details of the Kubernetes v1.33 release in our [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.XX.md).
+Check out the full details of the Kubernetes v1.33 release in our [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.33.md).
 
 ### Availability
 
-Kubernetes v1.33 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.XX.0) or on the [Kubernetes download page](http:///releases/download/).
+Kubernetes v1.33 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.33.0) or on the [Kubernetes download page](/releases/download/).
 
 To get started with Kubernetes, check out these [interactive tutorials](http:///docs/tutorials/) or run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/). You can also easily install v1.33 using [kubeadm](http:///docs/setup/independent/create-cluster-kubeadm/).
 
-### Release Team
+### Release team
 
 Kubernetes is only possible with the support, commitment, and hard work of its community. Each release team is made up of dedicated community volunteers who work together to build the many pieces that make up the Kubernetes releases you rely on. This requires the specialized skills of people from all corners of our community, from the code itself to its documentation and project management.
 
@@ -341,7 +379,7 @@ We would like to thank the entire [release team](https://github.com/kubernetes/s
 
 The CNCF K8s [DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All) project aggregates several interesting data points related to the velocity of Kubernetes and various sub-projects. This includes everything from individual contributions to the number of companies contributing and illustrates the depth and breadth of effort that goes into evolving this ecosystem.
 
-In the v1.33 release cycle, which spanned 15 weeks from January 13 to April 23, 2025, we can see contributions from as many as 121 different companies and 570 individuals to Kubernetes alone (as of writing, a few weeks before the release date). In the wider cloud native ecosystem, the figure goes up to 435 companies counting 2400 total contributors. You can find the data source in [this dashboard](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=d28&var-repogroup_name=All&var-repo_name=kubernetes%2Fkubernetes&from=1736755200000&to=1745477999000). Compared to the [velocity data from previous release v1.32](https://kubernetes.io/blog/2024/12/11/kubernetes-v1-32-release/#project-velocity), we can see a similar number of contributions coming from companies and individuals, indicating strong interest and engagement seen in the community.
+In the v1.33 release cycle, which spanned 15 weeks from January 13 to April 23, 2025, we can see contributions from as many as 121 different companies and 570 individuals to Kubernetes alone (as of writing, a few weeks before the release date). In the wider cloud native ecosystem, the figure goes up to 435 companies counting 2400 total contributors. You can find the data source in [this dashboard](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=d28&var-repogroup_name=All&var-repo_name=kubernetes%2Fkubernetes&from=1736755200000&to=1745477999000). Compared to the [velocity data from previous release v1.32](/blog/2024/12/11/kubernetes-v1-32-release/#project-velocity), we can see a similar number of contributions coming from companies and individuals, indicating strong interest and engagement seen in the community.
 
 Note that, “contribution” counts when someone makes a commit, code review, comment, creates an issue or PR, reviews a PR (including blogs and documentation) or comments on issues and PRs. If you are interested in contributing, visit [Getting Started](https://www.kubernetes.dev/docs/guide/#getting-started) on our contributor website.
 
