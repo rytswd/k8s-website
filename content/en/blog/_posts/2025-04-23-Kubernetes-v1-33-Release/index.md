@@ -24,7 +24,7 @@ Kubernetes.
 
 ## Spotlight on key updates
 
-### Sidecar containers
+### Stable: Sidecar containers
 
 Sidecar is a versatile pattern of deploying separate auxiliary container(s) to handle extra capabilities in areas such as networking, logging, and metrics gathering. In v1.33, Kubernetes sidecar support graduates to stable.
 
@@ -36,7 +36,7 @@ To learn more, read [Sidecar Containers](/docs/concepts/workloads/pods/sidecar-c
 
 This work was done as part of [KEP-753: Sidecar Containers](https://kep.k8s.io/753) led by SIG Node.
 
-### In-place resource resize for vertical scaling of Pods
+### Beta: In-place resource resize for vertical scaling of Pods
 
 When provisioning a Pod, you can use various resources such as Deployment, StatefulSet, etc. Scalability requirements may need horizontal scaling by updating the Pod replica count, or vertical scaling by updating resources allocated to Pod’s container(s). Before this enhancement, container resources defined in a Pod's `spec` were immutable, and updating any of these details within a Pod template would trigger Pod replacement.
 
