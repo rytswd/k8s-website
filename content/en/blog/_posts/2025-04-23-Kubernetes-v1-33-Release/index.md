@@ -62,7 +62,7 @@ This work was done as part of [KEP-3104: Separate kubectl user preferences from 
 
 ### Backoff limits per index for indexed Jobs
 
-​This release introduces a feature that allows setting backoff limits on a per-index basis for Indexed Jobs. Traditionally, the `backoffLimit` parameter in Kubernetes Jobs specifies the number of retries before considering the entire Job as failed. With this enhancement, each index within an Indexed Job can have its own backoff limit, enabling more granular control over retry behaviors for individual tasks. This approach ensures that the failure of specific indices doesn't prematurely terminate the entire Job, allowing other indices to continue processing independently.
+​This feature allows setting backoff limits on a per-index basis for Indexed Jobs. Traditionally, the `backoffLimit` parameter in Kubernetes Jobs specifies the number of retries before considering the entire Job as failed. With this enhancement, each index within an Indexed Job can have its own backoff limit, enabling more granular control over retry behaviors for individual tasks. This approach ensures that the failure of specific indices doesn't prematurely terminate the entire Job, allowing other indices to continue processing independently.
 
 This work was done as part of [KEP-3850: Backoff Limit Per Index For Indexed Jobs](https://kep.k8s.io/3850) led by SIG Apps.
 
