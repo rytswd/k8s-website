@@ -24,6 +24,8 @@ Kubernetes.
 
 ## Spotlight on key updates
 
+Kubernetes v1.33 is packed with new features and improvements. Here are a few select updates the Release team would like to highlight!
+
 ### Stable: Sidecar containers
 
 Sidecar is a versatile pattern of deploying separate auxiliary container(s) to handle extra capabilities in areas such as networking, logging, and metrics gathering. In v1.33, Kubernetes sidecar support graduates to stable.
