@@ -22,6 +22,21 @@ Kubernetes.
 
 <Logo image size is recommended to be no more than 2160px\> {{\< figure src="/images/blog/YYYY-MM-DD-kubernetes-1.XX-release/k8s-1.XX.png" alt="Kubernetes v1.XX logo" class="release-logo" \>}}
 
+## Spotlight on key updates
+
+### Sidecar containers
+
+Sidecar is a versatile pattern of deploying separate auxiliary container(s) to handle extra capabilities in areas such as networking, logging, and metrics gathering. In v1.33, Kubernetes sidecar support graduates to stable.
+
+Kubernetes implements sidecars as a special class of init containers with `restartPolicy: Always`, ensuring that sidecars start before application containers, remain running throughout the pod's lifecycle, and terminate automatically after the main containers exit.
+
+Additionally, sidecars can utilize probes (startup, readiness, liveness) to signal their operational state, and their Out-Of-Memory (OOM) score adjustments are aligned with primary containers to prevent premature termination under memory pressure.
+
+To learn more, read [Sidecar Containers](/docs/concepts/workloads/pods/sidecar-containers/).
+
+This work was done as part of [KEP-753: Sidecar Containers](https://kep.k8s.io/753) led by SIG Node.
+
+
 ## Features graduating to Stable
 
 *This is a selection of some of the improvements that are now stable following the v1.33 release.*
