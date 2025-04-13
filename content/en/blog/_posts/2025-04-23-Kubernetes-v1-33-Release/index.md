@@ -367,7 +367,7 @@ Check out the full details of the Kubernetes v1.33 release in our [release notes
 
 Kubernetes v1.33 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.33.0) or on the [Kubernetes download page](/releases/download/).
 
-To get started with Kubernetes, check out these [interactive tutorials](http:///docs/tutorials/) or run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/). You can also easily install v1.33 using [kubeadm](http:///docs/setup/independent/create-cluster-kubeadm/).
+To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/) or run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/). You can also easily install v1.33 using [kubeadm](/docs/setup/independent/create-cluster-kubeadm/).
 
 ### Release team
 
