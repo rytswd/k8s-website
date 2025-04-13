@@ -369,7 +369,7 @@ You can find more in [KEP-4004: Deprecate status.nodeInfo.kubeProxyVersion field
 Windows Pod networking aimed to achieve feature parity with Linux and provide better cluster density by allowing containers to use the Node’s networking namespace.
 The original implementation landed as alpha with v1.26, but as it faced unexpected containerd behaviours,
 and alternative solutions were available, the Kubernetes project has decided to withdraw the associated
-KEP. We're expecting to see support fully removed in v1.33.
+KEP. Support was fully removed in v1.33.
 
 Please note that this does not affect [HostProcess containers](/docs/tasks/configure-pod-container/create-hostprocess-pod/), which provides host network as well as host level access. This withdrawal was about only giving the host network, which was never stable due to technical limitations with Windows networking logic.
 
