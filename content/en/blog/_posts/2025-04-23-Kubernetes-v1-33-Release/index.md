@@ -222,7 +222,7 @@ This work was done as part of [KEP-2902: Add CPUManager policy option to distrib
 Kubernetes 1.29 introduced a Sleep action for the `preStop` lifecycle hook in Pods, allowing containers to pause for a specified duration before termination.
 This provides a straightforward method to delay container shutdown, facilitating tasks such as connection draining or cleanup operations.
 
-The `Sleep` action in the `PreStop` hook can also accept a zero-second duration. This allows for defining a no-op `PreStop` hook, which can be useful in scenarios where a `PreStop` hook is required but no delay is desired.
+The Sleep action in a `preStop` hook can also accept a zero-second duration, and this ability is now beta. This allows for defining a no-op `preStop` hook, which can be useful in scenarios where a `preStop` hook is required but no delay is desired.
 
 This work was done as part of [KEP-3960: Introducing Sleep Action for PreStop Hook](https://kep.k8s.io/3960) and [KEP-4818: Allow zero value for Sleep Action of PreStop Hook](https://kep.k8s.io/4818) led by SIG Node.
 
