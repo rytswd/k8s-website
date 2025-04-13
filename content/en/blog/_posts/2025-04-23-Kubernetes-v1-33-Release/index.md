@@ -36,6 +36,18 @@ To learn more, read [Sidecar Containers](/docs/concepts/workloads/pods/sidecar-c
 
 This work was done as part of [KEP-753: Sidecar Containers](https://kep.k8s.io/753) led by SIG Node.
 
+### In-place resource resize for vertical scaling of Pods
+
+When provisioning a Pod, you can use various resources such as Deployment, StatefulSet, etc. Scalability requirements may need horizontal scaling by updating the Pod replica count, or vertical scaling by updating resources allocated to Pod’s container(s). Before this enhancement, container resources defined in a Pod's `spec` were immutable, and updating any of these details within a Pod template would trigger Pod replacement.
+
+But what if you could dynamically update the resource configuration for your existing Pods without restarting them?
+
+The [KEP-1287](https://kep.k8s.io/1287) is precisely to allow such in-place Pod updates. It was released as alpha in v1.27, and has graduated to beta in v1.33. This opens up various possibilities of vertical scale-up for stateful processes without any downtime,
+seamless scale-down when the traffic is low, and even allocating larger resources during startup
+that is eventually reduced once the initial setup is complete.
+
+This work was done as part of [KEP-1287: In-Place Update of Pod Resources](https://kep.k8s.io/1287) led by SIG Node and SIG Autoscaling.
+
 
 ## Features graduating to Stable
 
@@ -189,20 +201,6 @@ This work was done as part of [KEP-127: Support User Namespaces in pods](https:/
 Introduced as alpha in v1.12, and off-by-default beta in v1.31, `procMount` option is moving to on-by-default beta in v1.33. This enhancement improves Pod isolation by allowing users to fine-tune access to the `/proc` filesystem. Specifically, it adds a field to the Pod security context that lets you override the default behavior of masking and marking certain `/proc` paths as read-only. This is particularly useful for scenarios where users want to run unprivileged containers inside the Kubernetes Pod using user namespaces. Normally, the container runtime (via the CRI implementation) starts the outer container with strict `/proc` mount settings. However, to successfully run nested containers with an unprivileged Pod, users need a mechanism to relax those defaults and this feature enables exactly that.
 
 This work was done as part of [KEP-4265: add ProcMount option](https://kep.k8s.io/4265) led by SIG Node.
-
-### In-place resource resize for vertical scaling of Pods
-
-When provisioning a Pod, you can use various resources such as Deployment, StatefulSet, etc. Scalability requirements may need horizontal scaling by updating the Pod replica count, or vertical scaling by updating resources allocated to Pod’s container(s). Before this enhancement, container resources defined in a Pod's `spec` were immutable, and updating any of these details within a Pod template would trigger Pod replacement.
-
-But what if you could dynamically update the resource configuration for your existing Pods without restarting them?
-
-The [KEP-1287](https://kep.k8s.io/1287) is precisely to allow such in-place Pod updates.
-It opens up various possibilities of vertical scale-up for stateful processes without any downtime,
-seamless scale-down when the traffic is low, and even allocating larger resources during startup
-that is eventually reduced once the initial setup is complete.
-This was released as alpha in v1.27, and has graduated to beta in v1.33
-
-This work was done as part of [KEP-1287: In-Place Update of Pod Resources](https://kep.k8s.io/1287) led by SIG Node and SIG Autoscaling.
 
 ### CPUManager policy to distribute CPUs across NUMA nodes
 
