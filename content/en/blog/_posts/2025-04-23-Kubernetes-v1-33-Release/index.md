@@ -124,7 +124,7 @@ isolation of services managed by tools or controllers based on global configurat
 
 This work was done as part of [KEP-3633: Introduce MatchLabelKeys to Pod Affinity and Pod Anti Affinity](https://kep.k8s.io/3633) led by SIG Scheduling.
 
-### Considering taints and tolerations when calculating Pod topology sread skew
+### Considering taints and tolerations when calculating Pod topology spread skew
 
 This enhanced `PodTopologySpread` by introducing two fields: `nodeAffinityPolicy` and `nodeTaintsPolicy`. These fields allow users to specify whether node affinity rules and node taints should be considered when calculating pod distribution across nodes. By default, `nodeAffinityPolicy` is set to `Honor`, meaning only nodes matching the pod's node affinity or selector are included in the distribution calculation. The `nodeTaintsPolicy` defaults to `Ignore`, indicating that node taints are not considered unless specified. This enhancement provides finer control over pod placement, ensuring that pods are scheduled on nodes that meet both affinity and taint toleration requirements, thereby preventing scenarios where pods remain pending due to unsatisfied constraints.
 
