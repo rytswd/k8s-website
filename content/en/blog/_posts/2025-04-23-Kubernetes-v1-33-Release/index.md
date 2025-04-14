@@ -53,7 +53,7 @@ This work was done as part of [KEP-1287: In-Place Update of Pod Resources](https
 
 ### Alpha: New configuration option for kubectl with `.kuberc` for user preferences
 
-`kubectl` introduces an entirely new opt-in configuration file `.kuberc` for user preferences, allowing users to manage cluster credentials and host information separately. During the alpha stage, users can enable this by setting the environment variable of `KUBECTL_KUBERC=true` set, along with the `.kuberc` configuration file, which is under `~/.kube/kuberc` by default. This can also be run by using the argument of `--kuberc`, for example: `kubectl --kuberc /var/kube/rc`.
+`kubectl` introduces an entirely new opt-in configuration file `.kuberc` for user preferences, allowing users to manage cluster credentials and host information separately. During the alpha stage, users can enable this by setting the environment variable of `KUBECTL_KUBERC=true`, along with the `.kuberc` configuration file, which is under `~/.kube/kuberc` by default. This can also be run by using the argument of `--kuberc`, for example: `kubectl --kuberc /var/kube/rc`.
 
 This work was done as part of [KEP-3104: Separate kubectl user preferences from cluster configs](https://kep.k8s.io/3104) led by SIG CLI.
 
@@ -97,7 +97,7 @@ This work was done as part of [KEP-1880: Multiple Service CIDRs](https://kep.k8s
 
 ### `nftables` backend for kube-proxy
 
-The `nftables` backend for kube-proxy is now stable, adding a new implementation that significantly improves performance and scalability for Services implementation within Kubernetes clusters. For compatibility reasons, `iptables` remains to be the default on Linux nodes. Check the [migration guide](/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables) if you would like to try it out.
+The `nftables` backend for kube-proxy is now stable, adding a new implementation that significantly improves performance and scalability for Services implementation within Kubernetes clusters. For compatibility reasons, `iptables` remains the default on Linux nodes. Check the [migration guide](/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables) if you would like to try it out.
 
 This work was done as part of [KEP-3866: nftables kube-proxy backend](https://kep.k8s.io/3866) led by SIG Network.
 
@@ -182,7 +182,7 @@ This work was done as part of [KEP-3257: ClusterTrustBundles (previously Trust A
 
 ### Fine-grained SupplementalGroups control
 
-Introduced in v1.31, this feature graduates to beta in v1.33 and is now enabled by default. Provided that your cluster has the `SupplementalGroupsPolicy` fearture gate
+Introduced in v1.31, this feature graduates to beta in v1.33 and is now enabled by default. Provided that your cluster has the `SupplementalGroupsPolicy` feature gate
 enabled, the `supplementalGroupsPolicy` field within a Pod's `securityContext` offers two options:
 the default Merge policy maintains backward compatibility by combining specified groups with those from the container image's `/etc/group` file, whereas the new Strict policy applies only to explicitly defined groups.
 
@@ -192,7 +192,7 @@ This work was done as part of [KEP-3619: Fine-grained SupplementalGroups control
 
 ### Support for mounting images as volumes
 
-Support for using Open Container Initiative (OCI) images as volumes in Pods, introduced in v1.31, has graduated to beta. This feature allows users to specify an image reference as a volume in a Pod while reusing it as volume mount within containers. It opens up the possibility of packaging the volume data separately, and sharing them among containers in a Pod without including them in the main image, thereby reducing vulnerabilities and simplifying image creation.
+Support for using Open Container Initiative (OCI) images as volumes in Pods, introduced in v1.31, has graduated to beta. This feature allows users to specify an image reference as a volume in a Pod while reusing it as a volume mount within containers. It opens up the possibility of packaging the volume data separately, and sharing them among containers in a Pod without including them in the main image, thereby reducing vulnerabilities and simplifying image creation.
 
 This work was done as part of [KEP-4639: VolumeSource: OCI Artifact and/or Image](https://kep.k8s.io/4639) led by SIG Node and SIG Storage.
 
@@ -255,7 +255,7 @@ This work was done as part of [KEP-4603: Tune CrashLoopBackOff](https://kep.k8s.
 
 ### Custom container stop signals
 
-Before Kubernetes v1.33, stop signals could only be set in container image definitions (for example, via the `StopSignal` configuration field in the image metatadata).
+Before Kubernetes v1.33, stop signals could only be set in container image definitions (for example, via the `StopSignal` configuration field in the image metadata).
 If you wanted to modify termination behavior, you needed to build a custom container image. By enabling the (alpha) `ContainerStopSignals` feature gate in Kubernetes v1.33, you can now define custom stop signals directly within Pod specifications.
 This is defined in the container's `lifecycle.stopSignal` field and requires the Pod's `spec.os.name` field to be present.
 If unspecified, containers fall back to the image-defined stop signal (if present), or the container runtime default (typically SIGTERM for Linux).
