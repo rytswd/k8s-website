@@ -64,7 +64,7 @@ This work was done as part of [KEP-3104: Separate kubectl user preferences from 
 
 ### Backoff limits per index for indexed Jobs
 
-​This feature allows setting backoff limits on a per-index basis for Indexed Jobs. Traditionally, the `backoffLimit` parameter in Kubernetes Jobs specifies the number of retries before considering the entire Job as failed. With this enhancement, each index within an Indexed Job can have its own backoff limit, enabling more granular control over retry behaviors for individual tasks. This approach ensures that the failure of specific indices doesn't prematurely terminate the entire Job, allowing other indices to continue processing independently.
+​This release graduates a feature that allows setting backoff limits on a per-index basis for Indexed Jobs. Traditionally, the `backoffLimit` parameter in Kubernetes Jobs specifies the number of retries before considering the entire Job as failed. With this enhancement, each index within an Indexed Job can have its own backoff limit, enabling more granular control over retry behaviors for individual tasks. This approach ensures that the failure of specific indices doesn't prematurely terminate the entire Job, allowing other indices to continue processing independently.
 
 This work was done as part of [KEP-3850: Backoff Limit Per Index For Indexed Jobs](https://kep.k8s.io/3850) led by SIG Apps.
 
@@ -74,15 +74,15 @@ Using `.spec.successPolicy`, users can specify which pod indexes must succeed (`
 
 This work was done as part of [KEP-3998: Job success/completion policy](https://kep.k8s.io/3998) led by SIG Apps.
 
-### Bound ServiceAccount token improvements
+### Bound ServiceAccount token security improvements
 
-This enhancement introduces features such as including a unique token identifier (i.e. [JWT ID Claim, also known as JTI](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.7)) and node information within the tokens, enabling more precise validation and auditing. Additionally, it supports node-specific restrictions, ensuring that tokens are only usable on designated nodes, thereby reducing the risk of token misuse. These improvements aim to enhance the overall security posture of service account tokens within Kubernetes clusters.
+This enhancement introduced features such as including a unique token identifier (i.e. [JWT ID Claim, also known as JTI](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.7)) and node information within the tokens, enabling more precise validation and auditing. Additionally, it supports node-specific restrictions, ensuring that tokens are only usable on designated nodes, thereby reducing the risk of token misuse. These improvements, now generally available, aim to enhance the overall security posture of service account tokens within Kubernetes clusters.
 
 This work was done as part of [KEP-4193: Bound service account token improvements](https://kep.k8s.io/4193) led by SIG Auth.
 
 ### Subresource support in kubectl
 
-A `--subresource` argument is available for kubectl subcommands such as `get`, `patch`, `edit`, `apply` and `replace` to fetch and update subresources for all resources that support them. To learn more about the subresources supported, visit the [kubectl reference](/docs/reference/kubectl/conventions/#subresources).
+A `--subresource` argument is now generally available for kubectl subcommands such as `get`, `patch`, `edit`, `apply` and `replace` to fetch and update subresources for all resources that support them. To learn more about the subresources supported, visit the [kubectl reference](/docs/reference/kubectl/conventions/#subresources).
 
 This work was done as part of [KEP-2590: Add subresource support to kubectl](https://kep.k8s.io/2590) led by SIG CLI.
 
@@ -98,7 +98,7 @@ This work was done as part of [KEP-1880: Multiple Service CIDRs](https://kep.k8s
 
 ### `nftables` backend for kube-proxy
 
-The `nftables` backend for kube-proxy is now stable, adding a new implementation that significantly improves performance and scalability for Services implementation within Kubernetes clusters. For compatibility reasons, `iptables` backend will continue to be the default. Check the [migration guide](/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables) if you would like to try it out.
+The `nftables` backend for kube-proxy is now stable, adding a new implementation that significantly improves performance and scalability for Services implementation within Kubernetes clusters. For compatibility reasons, `iptables` remains to be the default on Linux nodes. Check the [migration guide](/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables) if you would like to try it out.
 
 This work was done as part of [KEP-3866: nftables kube-proxy backend](https://kep.k8s.io/3866) led by SIG Network.
 
@@ -110,13 +110,13 @@ This work was done as part of [KEP-4444: Traffic Distribution for Services](http
 
 ### Options to reject non SMT-aligned workload
 
-This feature adds policy options to the CPU Manager, enabling it to reject workloads that do not align with Simultaneous Multithreading (SMT) configurations. This enhancement ensures that when a pod requests exclusive use of CPU cores, the CPU Manager can enforce allocation of entire core pairs (comprising primary and sibling threads) on SMT-enabled systems, thereby preventing scenarios where workloads share CPU resources in unintended ways.
+This feature added policy options to the CPU Manager, enabling it to reject workloads that do not align with Simultaneous Multithreading (SMT) configurations. This enhancement, now generally available, ensures that when a pod requests exclusive use of CPU cores, the CPU Manager can enforce allocation of entire core pairs (comprising primary and sibling threads) on SMT-enabled systems, thereby preventing scenarios where workloads share CPU resources in unintended ways.
 
 This work was done as part of [KEP-2625: node: cpumanager: add options to reject non SMT-aligned workload](https://kep.k8s.io/2625) led by SIG Node.
 
 ### Defining Pod affinity or anti-affinity using `matchLabelKeys` and `mismatchLabelKeys`
 
-Fields `matchLabelKeys` and `mismatchLabelKeys` are available in within the `affinityTerm` field of a Pod,
+Fields `matchLabelKeys` and `mismatchLabelKeys` are available in Pod affinity terms,
 enabling users to finely control the scope where Pods are expected to co-exist (Affinity) or not (AntiAffinity).
 These newly stable options complement the existing `labelSelector` mechanism.
 The affinity fields facilitate enhanced scheduling for versatile rolling updates, as well as
@@ -126,7 +126,7 @@ This work was done as part of [KEP-3633: Introduce MatchLabelKeys to Pod Affinit
 
 ### Considering taints and tolerations when calculating Pod topology sread skew
 
-This enhances `PodTopologySpread` by introducing two new fields: `nodeAffinityPolicy` and `nodeTaintsPolicy`. These fields allow users to specify whether node affinity rules and node taints should be considered when calculating pod distribution across nodes. By default, `nodeAffinityPolicy` is set to `Honor`, meaning only nodes matching the pod's node affinity or selector are included in the distribution calculation. The `nodeTaintsPolicy` defaults to `Ignore`, indicating that node taints are not considered unless specified. This enhancement provides finer control over pod placement, ensuring that pods are scheduled on nodes that meet both affinity and taint toleration requirements, thereby preventing scenarios where pods remain pending due to unsatisfied constraints.
+This enhanced `PodTopologySpread` by introducing two fields: `nodeAffinityPolicy` and `nodeTaintsPolicy`. These fields allow users to specify whether node affinity rules and node taints should be considered when calculating pod distribution across nodes. By default, `nodeAffinityPolicy` is set to `Honor`, meaning only nodes matching the pod's node affinity or selector are included in the distribution calculation. The `nodeTaintsPolicy` defaults to `Ignore`, indicating that node taints are not considered unless specified. This enhancement provides finer control over pod placement, ensuring that pods are scheduled on nodes that meet both affinity and taint toleration requirements, thereby preventing scenarios where pods remain pending due to unsatisfied constraints.
 
 This work was done as part of [KEP-3094: Take taints/tolerations into consideration when calculating PodTopologySpread skew](https://kep.k8s.io/3094) led by SIG Scheduling.
 
@@ -136,14 +136,14 @@ After making beta release in v1.24, _volume populators_ have graduated to GA in 
 just from PersistentVolumeClaim (PVC) clones or volume snapshots.
 The mechanism relies on the `dataSourceRef` field within a PersistentVolumeClaim. This field offers more flexibility than the existing `dataSource` field, and allows for custom resources to be used as data sources.
 
-A special controller, `volume-data-source-validator`, validates these data source references, alongside a CustomResourceDefinition (CRD) for an API kind named VolumePopulator.
+A special controller, `volume-data-source-validator`, validates these data source references, alongside a newly stable CustomResourceDefinition (CRD) for an API kind named VolumePopulator.
 The VolumePopulator API allows volume populator controllers to register the types of data sources they support. You need to set up your cluster with the appropriate CRD in order to use volume populators.
 
 This work was done as part of [KEP-1495: Generic data populators](https://kep.k8s.io/1495) led by SIG Storage.
 
 ### Always Honor PersistentVolume Reclaim Policy
 
-This feature addresses an issue where the Persistent Volume (PV) reclaim policy is not consistently honored, leading to potential storage resource leaks. Specifically, if a PV is deleted before its associated Persistent Volume Claim (PVC), the "Delete" reclaim policy may not be executed, leaving underlying storage assets intact. To mitigate this, the proposal introduces finalizers to PVs, ensuring that the reclaim policy is enforced regardless of the deletion sequence. This enhancement prevents unintended retention of storage resources and maintains consistency in PV lifecycle management.
+This enhancement addressed an issue where the Persistent Volume (PV) reclaim policy is not consistently honored, leading to potential storage resource leaks. Specifically, if a PV is deleted before its associated Persistent Volume Claim (PVC), the "Delete" reclaim policy may not be executed, leaving underlying storage assets intact. To mitigate this, Kubernetes now sets finalizers on relevant PVs, ensuring that the reclaim policy is enforced regardless of the deletion sequence. This enhancement prevents unintended retention of storage resources and maintains consistency in PV lifecycle management.
 
 This work was done as part of [KEP-2644: Always Honor PersistentVolume Reclaim Policy](https://kep.k8s.io/2644) led by SIG Storage.
 
@@ -165,19 +165,19 @@ This work was done as part of [KEP-4817: DRA: Resource Claim Status with possibl
 
 ### Handle unscheduled pods early when scheduler does not have any pod on activeQ
 
-This feature improves queue scheduling behavior by popping pods from the backoffQ, which are not backed off due to errors, when the activeQ is empty. The previous behaviour is to become idle even when the activeQ is empty, and this enhancement can improve the scheduling efficiency.
+This feature improves queue scheduling behavior. Behind the scenes, the scheduler achieves this by popping pods from the _backoffQ_, which are not backed off due to errors, when the _activeQ_ is empty. The previous behaviour is to become idle even when the _activeQ_ is empty, and this enhancement can improve the scheduling efficiency.
 
 This work was done as part of [KEP-5142: Pop pod from backoffQ when activeQ is empty](https://kep.k8s.io/5142) led by SIG Scheduling.
 
 ### Asynchronous preemption in the Kubernetes Scheduler
 
-Preemption ensures higher-priority pods get the resources they need by evicting lower-priority ones. Asynchronous Preemption, introduced in v1.32 as alpha, promotes to beta in v1.33. With this enhancement, heavy operations like API calls to delete pods are processed in parallel, allowing the scheduler to continue scheduling other pods without delays. This improvement is particularly beneficial in clusters with high Pod churn or frequent scheduling failures, ensuring a more efficient and resilient scheduling process.
+Preemption ensures higher-priority pods get the resources they need by evicting lower-priority ones. Asynchronous Preemption, introduced in v1.32 as alpha, has graduated to beta in v1.33. With this enhancement, heavy operations like API calls to delete pods are processed in parallel, allowing the scheduler to continue scheduling other pods without delays. This improvement is particularly beneficial in clusters with high Pod churn or frequent scheduling failures, ensuring a more efficient and resilient scheduling process.
 
 This work was done as part of [KEP-4832: Asynchronous preemption in the scheduler](https://kep.k8s.io/4832) led by SIG Scheduling.
 
 ### ClusterTrustBundles
 
-ClusterTrustBundle, a cluster-scoped resource designed for holding X.509 trust anchors (root certificates), graduates to beta in v1.33. This resource makes it easier for in-cluster certificate signers to publish and communicate X.509 trust anchors to cluster workloads.
+ClusterTrustBundle, a cluster-scoped resource designed for holding X.509 trust anchors (root certificates), has graduated to beta in v1.33. This API makes it easier for in-cluster certificate signers to publish and communicate X.509 trust anchors to cluster workloads.
 
 This work was done as part of [KEP-3257: ClusterTrustBundles (previously Trust Anchor Sets)](https://kep.k8s.io/3257) led by SIG Auth.
 
@@ -187,27 +187,27 @@ Introduced in v1.31, this feature graduates to beta in v1.33 and is now enabled 
 enabled, the `supplementalGroupsPolicy` field within a Pod's `securityContext` offers two options:
 the default Merge policy maintains backward compatibility by combining specified groups with those from the container image's `/etc/group` file, while the new Strict policy applies only to explicitly defined groups.
 
-This enhancement addresses security concerns where implicit group memberships from container images could lead to unintended file access permissions and bypass policy controls.
+This enhancement helps to address security concerns where implicit group memberships from container images could lead to unintended file access permissions and bypass policy controls.
 
 This work was done as part of [KEP-3619: Fine-grained SupplementalGroups control](https://kep.k8s.io/3619) led by SIG Node.
 
 ### Support for mounting images as volumes
 
-Support for using Open Container Initiative (OCI) images as volumes in Pods, introduced in v1.31, promotes to beta. This feature allows users to specify an image reference as a volume in a Pod while reusing it as volume mount within containers. It opens up the possibility of packaging the volume data separately, and sharing them among containers in a Pod without including them in the main image, thereby reducing vulnerabilities and simplifying image creation.
+Support for using Open Container Initiative (OCI) images as volumes in Pods, introduced in v1.31, has graduated to beta. This feature allows users to specify an image reference as a volume in a Pod while reusing it as volume mount within containers. It opens up the possibility of packaging the volume data separately, and sharing them among containers in a Pod without including them in the main image, thereby reducing vulnerabilities and simplifying image creation.
 
 This work was done as part of [KEP-4639: VolumeSource: OCI Artifact and/or Image](https://kep.k8s.io/4639) led by SIG Node and SIG Storage.
 
 ### Support for user namespaces within Linux Pods
 
-One of the oldest open KEPs today is [KEP-127](https://kep.k8s.io/127), Pod security improvement by using Linux [User namespaces](/docs/concepts/workloads/pods/user-namespaces/) for Pods. This KEP was first opened in late 2016, and after multiple iterations, had its alpha release in v1.25, initial beta in v1.30 (where it was disabled by default), and now is set to be a part of v1.33, where the feature is available by default.
+One of the oldest open KEPs today is [KEP-127](https://kep.k8s.io/127), Pod security improvement by using Linux [User namespaces](/docs/concepts/workloads/pods/user-namespaces/) for Pods. This KEP was first opened in late 2016, and after multiple iterations, had its alpha release in v1.25, initial beta in v1.30 (where it was disabled by default), and now is a part of v1.33, where the feature is available by default.
 
 This support will not impact existing Pods unless you manually specify `pod.spec.hostUsers` to opt in. As highlighted in the [v1.30 sneak peek blog](/blog/2024/03/12/kubernetes-1-30-upcoming-changes/), this is an important milestone for mitigating vulnerabilities.
 
 This work was done as part of [KEP-127: Support User Namespaces in pods](https://kep.k8s.io/127) led by SIG Node.
 
-### Add `procMount` option
+### Pod `procMount` option
 
-Introduced as alpha in v1.12, and off-by-default beta in v1.31, `procMount` option is moving to on-by-default beta in v1.33. This enhancement improves Pod isolation by allowing users to fine-tune access to the `/proc` filesystem. Specifically, it adds a field to the Pod security context that lets you override the default behavior of masking and marking certain `/proc` paths as read-only. This is particularly useful for scenarios where users want to run unprivileged containers inside the Kubernetes Pod using user namespaces. Normally, the container runtime (via the CRI implementation) starts the outer container with strict `/proc` mount settings. However, to successfully run nested containers with an unprivileged Pod, users need a mechanism to relax those defaults and this feature enables exactly that.
+Introduced as alpha in v1.12, and off-by-default beta in v1.31, `procMount` option has moved to an on-by-default beta in v1.33. This enhancement improves Pod isolation by allowing users to fine-tune access to the `/proc` filesystem. Specifically, it adds a field to the Pod `securityContext` that lets you override the default behavior of masking and marking certain `/proc` paths as read-only. This is particularly useful for scenarios where users want to run unprivileged containers inside the Kubernetes Pod using user namespaces. Normally, the container runtime (via the CRI implementation) starts the outer container with strict `/proc` mount settings. However, to successfully run nested containers with an unprivileged Pod, users need a mechanism to relax those defaults and this feature enables exactly that.
 
 This work was done as part of [KEP-4265: add ProcMount option](https://kep.k8s.io/4265) led by SIG Node.
 
@@ -255,10 +255,9 @@ Introduced as alpha1 in v1.32, this feature provides a set of kubelet level conf
 This work was done as part of [KEP-4603: Tune CrashLoopBackOff](https://kep.k8s.io/4603) led by SIG Node.
 
 ### Custom container stop signals
-``
 
 Before Kubernetes v1.33, stop signals could only be set in container image definitions (for example, via the `StopSignal` configuration field in the image metatadata).
-If you wanted to modify termination behavior, you needed to build a custom container imnage. By enabling the `ContainerStopSignals` feature gate in Kubernetes v1.33, you can now define custom stop signals directly within Pod specifications.
+If you wanted to modify termination behavior, you needed to build a custom container imnage. By enabling the (alpha) `ContainerStopSignals` feature gate in Kubernetes v1.33, you can now define custom stop signals directly within Pod specifications.
 The stop signal is defined in the container's `lifecycle.stopSignal` field and requires the Pod's `spec.os.name` field to be present.
 If unspecified, containers fall back to the image-defined stop signal where present, or the container runtime default otherwise (for Linux, this is typically SIGTERM).
 
@@ -281,13 +280,13 @@ This work was done as part of [KEP-5055: DRA: device taints and tolerations](htt
 
 ### Robust image pull policy to authenticate images for `IfNotPresent` and `Never`
 
-This feature allows users to ensure that kubelet requires an image pull auth check for each new set of credentials, regardless of whether the image is already present on the node.
+This feature allows users to ensure that kubelet requires an image pull authentication check for each new set of credentials, regardless of whether the image is already present on the node.
 
 This work was done as part of [KEP-2535: Ensure secret pulled images](https://kep.k8s.io/2535) led by SIG Auth.
 
-### Node topology labels to be made available via downward API
+### Node topology labels are available via downward API
 
-This feature enables Node topology labels to be exposed via downward API. There is a workaround of using init container to query the Kubernetes API for the underlying node, and this change will simplify access to topology information, allowing more fine grained topology-aware placement for workloads sensitive to communication latency.
+This feature enables Node topology labels to be exposed via downward API. Before Kubernetes v1.33, you could use a workaround of using an init container to query the Kubernetes API for the underlying node; this alpha feature simplifies how workloads can access Node topology information.
 
 This work was done as part of [KEP-4742: Expose Node labels via downward API](https://kep.k8s.io/4742) led by SIG Node.
 
@@ -299,19 +298,19 @@ This work was done as part of [KEP-5067: Pod Generation](https://kep.k8s.io/5067
 
 ### Support for split level 3 cache architecture with kubelet’s CPU Manager
 
-The previous kubelet’s CPU Manager is unaware of split L3 cache architecture (also known as Last Level Cache, or LLC), and can potentially distribute CPU assignments without taking the split L3 cache into account, causing a noisy neighbor problem. This feature improves the CPU Manager to better assign CPU cores for better performance.
+The previous kubelet’s CPU Manager was unaware of split L3 cache architecture (also known as Last Level Cache, or LLC), and can potentially distribute CPU assignments without taking the split L3 cache into account, causing a noisy neighbor problem. This alpha feature improves the CPU Manager to better assign CPU cores for better performance.
 
 This work was done as part of [KEP-5109: Split L3 Cache Topology Awareness in CPU Manager](https://kep.k8s.io/5109) led by SIG Node.
 
 ### PSI (Pressure Stall Information) metrics for scheduling improvements
 
-This feature adds support for providing PSI stats and metrics using cgroupv2. It can be used to detect resource shortages and provide nodes with more granular control for pod scheduling.
+This feature adds support on Linux nodes for providing PSI stats and metrics using cgroupv2. It can be used to detect resource shortages and provide nodes with more granular control for pod scheduling.
 
 This work was done as part of [KEP-4205: Support PSI based on cgroupv2](https://kep.k8s.io/4205) led by SIG Node.
 
-### Enable secret-less image pull with kubelet
+### Secret-less image pulls with kubelet
 
-The kubelet's on-disk credential provider now supports optional Kubernetes Service Account (KSA) token provisioning. This simplifies authentication with image registries by allowing cloud providers to better integrate with OIDC compatible identity solutions.
+The kubelet's on-disk credential provider now supports optional Kubernetes ServiceAccount (SA) token fetching. This simplifies authentication with image registries by allowing cloud providers to better integrate with OIDC compatible identity solutions.
 
 This work was done as part of [KEP-4412: Projected service account tokens for Kubelet image credential providers](https://kep.k8s.io/4412) led by SIG Auth.
 
@@ -321,7 +320,7 @@ This work was done as part of [KEP-4412: Projected service account tokens for Ku
 
 This lists all the features that graduated to stable (also known as *general availability*). For a full list of updates including new features and graduations from alpha to beta, see the release notes.
 
-This release includes a total of X enhancements promoted to stable:
+This release includes a total of 24 enhancements promoted to stable:
 
 * [Take taints/tolerations into consideration when calculating PodTopologySpread skew](https://github.com/kubernetes/enhancements/issues/3094)
 * [Introduce `MatchLabelKeys` to Pod Affinity and Pod Anti Affinity](https://github.com/kubernetes/enhancements/issues/3633)
