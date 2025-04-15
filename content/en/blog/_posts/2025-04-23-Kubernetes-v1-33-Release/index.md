@@ -156,6 +156,12 @@ DSR provides performance optimizations by allowing the return traffic routed thr
 
 Initially introduced in v1.14, support for DSR has been promoted to beta by SIG Windows as part of [KEP-5100: Support for Direct Service Return (DSR) and overlay networking in Windows kube-proxy](https://kep.k8s.io/5100).
 
+### Structured parameter support
+While structured parameter support continues as a beta feature in Kubernetes v1.33, this core part of Dynamic Resource Allocation (DRA) has seen significant improvements. A new v1beta2 version simplifies the `resource.k8s.io` API, and regular users with the namespaced cluster `edit` role can now use DRA.
+
+The `kubelet` now includes seamless upgrade support, enabling drivers deployed as DaemonSets to use a rolling update mechanism. For DRA implementations, this prevents the deletion and re-creation of ResourceSlices, allowing them to remain unchanged during upgrades. Additionally, a 30-second grace period has been introduced before the `kubelet` cleans up after unregistering a driver, providing better support for drivers that do not use rolling updates.
+
+This work was done as part of [KEP-4381: DRA: structured parameters](https://kep.k8s.io/4381) by WG Device Management, a cross-functional team including SIG Node, SIG Scheduling, and SIG Autoscaling.
 ### Dynamic Resource Allocation (DRA) for network interfaces
 
 The standardized reporting of network interface data via DRA, introduced in v1.32, graduates to beta. This enables more native Kubernetes network integrations, simplifying the development and management of networking devices. This was covered previously in the [v1.32 release announcement blog](/blog/2024/12/11/kubernetes-v1-32-release/#dra-standardized-network-interface-data-for-resource-claim-status).
