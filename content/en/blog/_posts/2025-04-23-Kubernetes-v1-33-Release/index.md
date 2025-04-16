@@ -370,6 +370,16 @@ As it has been disabled by default since v1.31, this field has been removed enti
 
 You can find more in [KEP-4004: Deprecate status.nodeInfo.kubeProxyVersion field](https://kep.k8s.io/4004).
 
+#### Removal of in-tree gitRepo volume driver
+
+The gitRepo volume type has been deprecated since v1.11, nearly 7 years ago. Since its deprecation, there have been security concerns, including how gitRepo volume types can be exploited to gain remote code execution as root on the nodes. In v1.33, the in-tree driver code is removed.
+
+There are alternatives such as git-sync and initContainers. `gitVolumes` in the Kubernetes API is not removed, and thus pods with `gitRepo` volumes will be admitted by kube-apiserver, but kubelets with the feature-gate `GitRepoVolumeDriver` set to false will not run them and return an appropriate error to the user. This allows users to opt-in to re-enabling the driver for 3 versions to give them enough time to fix workloads. 
+
+The feature gate in kubelet and in-tree plugin code is planned to be removed in the v1.39 release.
+
+You can find more in [KEP-5040: Remove gitRepo volume driver](https://kep.k8s.io/5040).
+
 #### Removal of host network support for Windows pods
 
 Windows Pod networking aimed to achieve feature parity with Linux and provide better cluster density by allowing containers to use the Node’s networking namespace.
