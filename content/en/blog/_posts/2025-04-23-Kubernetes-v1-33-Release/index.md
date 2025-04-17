@@ -41,7 +41,7 @@ This work was done as part of [KEP-753: Sidecar Containers](https://kep.k8s.io/7
 
 ### Beta: In-place resource resize for vertical scaling of Pods
 
-When provisioning a Pod, you can use various resources such as Deployment, StatefulSet, etc. Scalability requirements may need horizontal scaling by updating the Pod replica count, or vertical scaling by updating resources allocated to Pod’s container(s). Before this enhancement, container resources defined in a Pod's `spec` were immutable, and updating any of these details within a Pod template would trigger Pod replacement.
+Workloads can be defined using APIs like Deployment, StatefulSet, etc. These describe the template for the Pods that should run, including memory and CPU resources, as well as the replica count of the number of Pods that should run. Workloads can be scaled horizontally by updating the Pod replica count, or vertically by updating the resources required in the Pods container(s). Before this enhancement, container resources defined in a Pod's `spec` were immutable, and updating any of these details within a Pod template would trigger Pod replacement.
 
 But what if you could dynamically update the resource configuration for your existing Pods without restarting them?
 
