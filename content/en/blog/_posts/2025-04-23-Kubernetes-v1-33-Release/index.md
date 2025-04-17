@@ -390,23 +390,23 @@ Please note that this does not affect [HostProcess containers](/docs/tasks/confi
 
 You can find more in [KEP-3503: Host network support for Windows pods](https://kep.k8s.io/3503).
 
-### Release notes
+## Release notes
 
 Check out the full details of the Kubernetes v1.33 release in our [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.33.md).
 
-### Availability
+## Availability
 
 Kubernetes v1.33 is available for download on [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.33.0) or on the [Kubernetes download page](/releases/download/).
 
 To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/) or run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/). You can also easily install v1.33 using [kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 
-### Release team
+## Release team
 
 Kubernetes is only possible with the support, commitment, and hard work of its community. Each release team is made up of dedicated community volunteers who work together to build the many pieces that make up the Kubernetes releases you rely on. This requires the specialized skills of people from all corners of our community, from the code itself to its documentation and project management.
 
 We would like to thank the entire [release team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.XX/release-team.md) for the hours spent hard at work to deliver the Kubernetes v1.33 release to our community. The Release Team's membership ranges from first-time shadows to returning team leads with experience forged over several release cycles. There was a new team structure adopted in this release cycle, which was to combine Release Notes and Docs subteams into a unified subteam of Docs. Thanks to the meticulous effort in organizing the relevant information and resources from the new Docs team, both Release Notes and Docs tracking have seen a smooth and successful transition. Finally, a very special thanks goes out to our release lead, Nina Polshakova, for her support throughout a successful release cycle, her advocacy, her efforts to ensure that everyone could contribute effectively, and her challenges to improve the release process.
 
-### Project Velocity
+## Project Velocity
 
 The CNCF K8s [DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All) project aggregates several interesting data points related to the velocity of Kubernetes and various sub-projects. This includes everything from individual contributions to the number of companies contributing and illustrates the depth and breadth of effort that goes into evolving this ecosystem.
 
@@ -416,7 +416,7 @@ Note that, “contribution” counts when someone makes a commit, code review, c
 
 [Check out DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All) to learn more about the overall velocity of the Kubernetes project and community.
 
-### Event Update
+## Event Update
 
 Explore upcoming Kubernetes and cloud-native events, including KubeCon, KCD, and other notable conferences worldwide. Stay informed and get involved with the Kubernetes community!
 
@@ -452,13 +452,13 @@ Explore upcoming Kubernetes and cloud-native events, including KubeCon, KCD, and
 
 You can find the latest KCD details [here](https://www.cncf.io/kcds/).
 
-### Upcoming Release Webinar
+## Upcoming Release Webinar
 
 [TODO]
 
 <RELEASE WEBINAR WILL TAKE PLACE NORMALLY 30 DAYS AFTER RELEASE, ALIGN WITH CNCF TO HIGHLIGHT THE WEBINAR>
 
-### Get Involved
+## Get Involved
 
 The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. Thank you for your continued feedback and support.
 
