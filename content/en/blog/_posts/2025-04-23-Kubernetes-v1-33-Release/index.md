@@ -255,7 +255,7 @@ This work was done as part of [KEP-5073: Declarative Validation Of Kubernetes Na
 
 This feature introduces configurable tolerance for HorizontalPodAutoscalers, which dampens scaling reactions to small metric variations.
 
-This work was done as a part of [KEP-4951: Configurable tolerance for Horizontal Pod Autoscalers](https://kep.k8s.io/4951) led by SIG Autoscaling.
+This work was done as part of [KEP-4951: Configurable tolerance for Horizontal Pod Autoscalers](https://kep.k8s.io/4951) led by SIG Autoscaling.
 
 ### Configurable container restart delay
 
