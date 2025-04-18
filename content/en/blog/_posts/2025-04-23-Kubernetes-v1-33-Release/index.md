@@ -235,7 +235,7 @@ The Sleep action in a `preStop` hook can now accept a zero-second duration as a 
 
 This work was done as part of [KEP-3960: Introducing Sleep Action for PreStop Hook](https://kep.k8s.io/3960) and [KEP-4818: Allow zero value for Sleep Action of PreStop Hook](https://kep.k8s.io/4818) led by SIG Node.
 
-### Declarative validation of Kubernetes-native types
+### Internal tooling for declarative validation of Kubernetes-native types
 
 Behind the scenes, the internals of Kubernetes are starting to use a new mechanism
 for validating objects and changes to objects.
