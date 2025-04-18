@@ -53,7 +53,9 @@ This work was done as part of [KEP-1287: In-Place Update of Pod Resources](https
 
 ### Alpha: New configuration option for kubectl with `.kuberc` for user preferences
 
-`kubectl` introduces an entirely new opt-in configuration file `.kuberc` for user preferences, allowing users to manage cluster credentials and host information separately. During the alpha stage, users can enable this by setting the environment variable of `KUBECTL_KUBERC=true`, along with the `.kuberc` configuration file, which is under `~/.kube/kuberc` by default. This can also be run by using the argument of `--kuberc`, for example: `kubectl --kuberc /var/kube/rc`.
+In v1.33, `kubectl` introduces a new alpha feature with opt-in configuration file `.kuberc` for user preferences. This file can contain `kubectl` aliases and overrides (e.g. defaulting to use [server-side apply](/docs/reference/using-api/server-side-apply/)), while leaving cluster credentials and host information in kubeconfig. This separation allows sharing the same preference for `kubectl` interaction, regardless of target cluster and kubeconfig used.
+
+To enable this alpha feature, users can set the environment variable of `KUBECTL_KUBERC=true` and create a `.kuberc` configuration file. By default, `kubectl` looks for this file in `~/.kube/kuberc`. You can also specify an alternative location using the `--kuberc` flag, for example: `kubectl --kuberc /var/kube/rc`.
 
 This work was done as part of [KEP-3104: Separate kubectl user preferences from cluster configs](https://kep.k8s.io/3104) led by SIG CLI.
 
