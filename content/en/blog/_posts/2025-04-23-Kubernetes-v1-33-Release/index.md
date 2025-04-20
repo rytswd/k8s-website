@@ -12,7 +12,7 @@ author: >
 
 Similar to previous releases, the release of Kubernetes v1.33 introduces new stable, beta, and alpha features. The consistent delivery of high-quality releases underscores the strength of our development cycle and the vibrant support from our community.
 
-This release consists of 64 enhancements. Of those enhancements, 18 have graduated to Stable, 20 are entering Beta, 24 have entered in Alpha, and 2 are deprecated or withdrawn.
+This release consists of 64 enhancements. Of those enhancements, 18 have graduated to Stable, 20 are entering Beta, 24 have entered Alpha, and 2 are deprecated or withdrawn.
 
 There are also several notable [deprecations and removals](#deprecations-and-removals) in this release; make sure to read about those if you already run an older version of
 Kubernetes.
@@ -45,7 +45,7 @@ Workloads can be defined using APIs like Deployment, StatefulSet, etc. These des
 
 But what if you could dynamically update the resource configuration for your existing Pods without restarting them?
 
-The [KEP-1287](https://kep.k8s.io/1287) is precisely to allow such in-place Pod updates. It was released as alpha in v1.27, and has graduated to beta in v1.33. This opens up various possibilities of vertical scale-up for stateful processes without any downtime,
+The [KEP-1287](https://kep.k8s.io/1287) is precisely to allow such in-place Pod updates. It was released as alpha in v1.27, and has graduated to beta in v1.33. This opens up various possibilities for vertical scale-up of stateful processes without any downtime,
 seamless scale-down when the traffic is low, and even allocating larger resources during startup,
 which can then be reduced once the initial setup is complete.
 
@@ -65,13 +65,13 @@ This work was done as part of [KEP-3104: Separate kubectl user preferences from 
 
 ### Backoff limits per index for indexed Jobs
 
-​This release graduates a feature that allows setting backoff limits on a per-index basis for Indexed Jobs. Traditionally, the `backoffLimit` parameter in Kubernetes Jobs specifies the number of retries before considering the entire Job as failed. This enhancement allows each index within an Indexed Job to have its own backoff limit, providing more granular control over retry behavior for individual tasks. This ensures that the failure of specific indices does not prematurely terminate the entire Job, allowing other indices to continue processing independently.
+​This release graduates a feature that allows setting backoff limits on a per-index basis for Indexed Jobs. Traditionally, the `backoffLimit` parameter in Kubernetes Jobs specifies the number of retries before considering the entire Job as failed. This enhancement allows each index within an Indexed Job to have its own backoff limit, providing more granular control over retry behavior for individual tasks. This ensures that the failure of specific indices does not prematurely terminate the entire Job, allowing the other indices to continue processing independently.
 
 This work was done as part of [KEP-3850: Backoff Limit Per Index For Indexed Jobs](https://kep.k8s.io/3850) led by SIG Apps.
 
 ### Job success policy
 
-Using `.spec.successPolicy`, users can specify which pod indexes must succeed (`succeededIndexes`), how many pods must succeed (`succeededCount`), or a combination of both. This feature benefits various workloads, including simulations where partial completion is sufficient and leader-worker patterns where only the leader's success determines the overall Job outcome.
+Using `.spec.successPolicy`, users can specify which pod indexes must succeed (`succeededIndexes`), how many pods must succeed (`succeededCount`), or a combination of both. This feature benefits various workloads, including simulations where partial completion is sufficient, and leader-worker patterns where only the leader's success determines the Job's overall outcome.
 
 This work was done as part of [KEP-3998: Job success/completion policy](https://kep.k8s.io/3998) led by SIG Apps.
 
@@ -99,7 +99,7 @@ This work was done as part of [KEP-1880: Multiple Service CIDRs](https://kep.k8s
 
 ### `nftables` backend for kube-proxy
 
-The `nftables` backend for kube-proxy is now stable, adding a new implementation that significantly improves performance and scalability for Services implementation within Kubernetes clusters. For compatibility reasons, `iptables` remains the default on Linux nodes. Check the [migration guide](/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables) if you would like to try it out.
+The `nftables` backend for kube-proxy is now stable, adding a new implementation that significantly improves performance and scalability for Services implementation within Kubernetes clusters. For compatibility reasons, `iptables` remains the default on Linux nodes. Check the [migration guide](/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables) if you want to try it out.
 
 This work was done as part of [KEP-3866: nftables kube-proxy backend](https://kep.k8s.io/3866) led by SIG Network.
 
@@ -295,7 +295,7 @@ This work was done as part of [KEP-2535: Ensure secret pulled images](https://ke
 
 ### Node topology labels are available via downward API
 
-This feature enables Node topology labels to be exposed via downward API. Prior to Kubernetes v1.33, a workaround involved using an init container to query the Kubernetes API for the underlying node; this alpha feature simplifies how workloads can access Node topology information.
+This feature enables Node topology labels to be exposed via the downward API. Prior to Kubernetes v1.33, a workaround involved using an init container to query the Kubernetes API for the underlying node; this alpha feature simplifies how workloads can access Node topology information.
 
 This work was done as part of [KEP-4742: Expose Node labels via downward API](https://kep.k8s.io/4742) led by SIG Node.
 
@@ -327,7 +327,7 @@ This work was done as part of [KEP-4412: Projected service account tokens for Ku
 
 ### Graduations to stable
 
-This lists all the features that graduated to stable (also known as *general availability*). For a full list of updates including new features and graduations from alpha to beta, see the release notes.
+This lists all the features that have graduated to stable (also known as *general availability*). For a full list of updates including new features and graduations from alpha to beta, see the release notes.
 
 This release includes a total of 18 enhancements promoted to stable:
 
