@@ -36,7 +36,7 @@ Kubernetes v1.33 is a testament to the enduring power of open-source innovation,
 
 ## Spotlight on key updates
 
-Kubernetes v1.33 is packed with new features and improvements. Here are a few select updates the Release team would like to highlight!
+Kubernetes v1.33 is packed with new features and improvements. Here are a few select updates the Release Team would like to highlight!
 
 ### Stable: Sidecar containers
 
@@ -413,7 +413,7 @@ Kubernetes v1.33 is available for download on [GitHub](https://github.com/kubern
 
 To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/) or run local Kubernetes clusters using [minikube](https://minikube.sigs.k8s.io/). You can also easily install v1.33 using [kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 
-## Release team
+## Release Team
 
 Kubernetes is only possible with the support, commitment, and hard work of its community. Release Team is made up of dedicated community volunteers who work together to build the many pieces that make up the Kubernetes releases you rely on. This requires the specialized skills of people from all corners of our community, from the code itself to its documentation and project management.
 
@@ -467,7 +467,7 @@ You can find the latest KCD details [here](https://www.cncf.io/kcds/).
 
 ## Upcoming release webinar
 
-Join members of the Kubernetes v1.33 release team on **Friday, May 16th 2025 at 4:00 PM (UTC)**, to learn about the
+Join members of the Kubernetes v1.33 Release Team on **Friday, May 16th 2025 at 4:00 PM (UTC)**, to learn about the
 release highlights of this release, as well as deprecations and removals to help plan for upgrades.
 For more information and registration, visit the [event
 page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-133-release/)
