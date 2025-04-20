@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes v1.33: TBC'
+title: 'Kubernetes v1.33: Octarine'
 date: 2025-04-23T10:30:00-08:00
 draft: true
 slug: kubernetes-v1-33-release
@@ -19,9 +19,20 @@ Kubernetes.
 
 ## Release theme and logo
 
-<NOTE: Logo image size is recommended to be no more than 2160px>
+{{< figure src="k8s-1.33.svg" alt="Kubernetes v1.33 logo: Octarine" class="release-logo" >}}
 
-{{< figure src="k8s-1.33.png" alt="Kubernetes v1.33 logo: XX" class="release-logo" >}}
+The theme for Kubernetes v1.33 is **Octarine: The Color of Magic**<sup>1</sup>, inspired by Terry Pratchett’s *Discworld* series. This release highlights the open-source magic<sup>2</sup> that Kubernetes enables across the ecosystem.
+
+If you’re familiar with the world of Discworld, you might recognize a small swamp dragon perched atop the tower of the Unseen University, gazing up at the Kubernetes moon above the city of Ankh-Morpork with 64 stars<sup>3</sup> in the background.
+
+As Kubernetes moves into its second decade, we celebrate both the wizardry of its maintainers, the curiosity of new contributors, and the collaborative spirit that fuels the project. The v1.33 release is a reminder that, as Pratchett wrote, *“It’s still magic even if you know how it’s done.”* Even if you know the ins and outs of the Kubernetes code base, stepping back at the end of the release cycle, you’ll realize that Kubernetes remains magical.
+
+Kubernetes v1.33 is a testament to the enduring power of open-source innovation, where hundreds of contributors<sup>4</sup> from around the world work together to create something truly extraordinary. Behind every new feature, the Kubernetes community works to maintain and improve the project, ensuring it remains secure, reliable, and released on time. Each release builds upon the other, creating something greater than we could achieve alone.
+
+<sub>1. Octarine is the mythical eighth color, visible only to those attuned to the arcane—wizards, witches, and, of course, cats. And occasionally, someone who’s stared at IPtable rules for too long.</sub>  
+<sub>2. Any sufficiently advanced technology is indistinguishable from magic…?</sub>  
+<sub>3. It’s not a coincidence 64 KEPs (Kubernetes Enhancement Proposals) are also included in v1.33.</sub>  
+<sub>4. See the Project Velocity section for v1.33 🚀</sub>
 
 ## Spotlight on key updates
 
