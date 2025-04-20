@@ -419,7 +419,7 @@ Kubernetes is only possible with the support, commitment, and hard work of its c
 
 We would like to thank the entire [Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.33/release-team.md) for the hours spent hard at work to deliver the Kubernetes v1.33 release to our community. The Release Team's membership ranges from first-time shadows to returning team leads with experience forged over several release cycles. There was a new team structure adopted in this release cycle, which was to combine Release Notes and Docs subteams into a unified subteam of Docs. Thanks to the meticulous effort in organizing the relevant information and resources from the new Docs team, both Release Notes and Docs tracking have seen a smooth and successful transition. Finally, a very special thanks goes out to our release lead, Nina Polshakova, for her support throughout a successful release cycle, her advocacy, her efforts to ensure that everyone could contribute effectively, and her challenges to improve the release process.
 
-## Project Velocity
+## Project velocity
 
 The CNCF K8s [DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All) project aggregates several interesting data points related to the velocity of Kubernetes and various subprojects. This includes everything from individual contributions, to the number of companies contributing, and illustrates the depth and breadth of effort that goes into evolving this ecosystem.
 
@@ -429,7 +429,7 @@ Note that, “contribution” counts when someone makes a commit, code review, c
 
 [Check out DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All) to learn more about the overall velocity of the Kubernetes project and community.
 
-## Event Update
+## Event update
 
 Explore upcoming Kubernetes and cloud native events, including KubeCon + CloudNativeCon, KCD, and other notable conferences worldwide. Stay informed and get involved with the Kubernetes community!
 
@@ -473,7 +473,7 @@ For more information and registration, visit the [event
 page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-133-release/)
 on the CNCF Online Programs site.
 
-## Get Involved
+## Get involved
 
 The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. Thank you for your continued feedback and support.
 
