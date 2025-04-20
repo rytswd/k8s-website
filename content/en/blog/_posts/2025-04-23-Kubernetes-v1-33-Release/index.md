@@ -53,7 +53,7 @@ This work was done as part of [KEP-1287: In-Place Update of Pod Resources](https
 
 ### Alpha: New configuration option for kubectl with `.kuberc` for user preferences
 
-In v1.33, `kubectl` introduces a new alpha feature with opt-in configuration file `.kuberc` for user preferences. This file can contain `kubectl` aliases and overrides (e.g. defaulting to use [server-side apply](/docs/reference/using-api/server-side-apply/)), while leaving cluster credentials and host information in kubeconfig. This separation allows sharing the same preference for `kubectl` interaction, regardless of target cluster and kubeconfig used.
+In v1.33, `kubectl` introduces a new alpha feature with opt-in configuration file `.kuberc` for user preferences. This file can contain `kubectl` aliases and overrides (e.g. defaulting to use [server-side apply](/docs/reference/using-api/server-side-apply/)), while leaving cluster credentials and host information in kubeconfig. This separation allows sharing the same user preferences for `kubectl` interaction, regardless of target cluster and kubeconfig used.
 
 To enable this alpha feature, users can set the environment variable of `KUBECTL_KUBERC=true` and create a `.kuberc` configuration file. By default, `kubectl` looks for this file in `~/.kube/kuberc`. You can also specify an alternative location using the `--kuberc` flag, for example: `kubectl --kuberc /var/kube/rc`.
 
@@ -117,7 +117,7 @@ This work was done as part of [KEP-2625: node: cpumanager: add options to reject
 
 ### Defining Pod affinity or anti-affinity using `matchLabelKeys` and `mismatchLabelKeys`
 
-Fields `matchLabelKeys` and `mismatchLabelKeys` are available in Pod affinity terms,
+The `matchLabelKeys` and `mismatchLabelKeys` fields are available in Pod affinity terms,
 enabling users to finely control the scope where Pods are expected to co-exist (Affinity) or not (AntiAffinity).
 These newly stable options complement the existing `labelSelector` mechanism.
 The affinity fields facilitate enhanced scheduling for versatile rolling updates, as well as
@@ -133,7 +133,7 @@ This work was done as part of [KEP-3094: Take taints/tolerations into considerat
 
 ### Volume populators
 
-After making beta release in v1.24, _volume populators_ have graduated to GA in this release. This newly stable feature provides a way to allow users to pre-populate volumes with data from various sources, and not
+After being released as beta in v1.24, _volume populators_ have graduated to GA in v1.33. This newly stable feature provides a way to allow users to pre-populate volumes with data from various sources, and not
 just from PersistentVolumeClaim (PVC) clones or volume snapshots.
 The mechanism relies on the `dataSourceRef` field within a PersistentVolumeClaim. This field offers more flexibility than the existing `dataSource` field, and allows for custom resources to be used as data sources.
 
@@ -168,7 +168,7 @@ This work was done as part of [KEP-4381: DRA: structured parameters](https://kep
 
 ### Dynamic Resource Allocation (DRA) for network interfaces
 
-The standardized reporting of network interface data via DRA, introduced in v1.32, graduates to beta. This enables more native Kubernetes network integrations, simplifying the development and management of networking devices. This was covered previously in the [v1.32 release announcement blog](/blog/2024/12/11/kubernetes-v1-32-release/#dra-standardized-network-interface-data-for-resource-claim-status).
+The standardized reporting of network interface data via DRA, introduced in v1.32, has graduated to beta in v1.33. This enables more native Kubernetes network integrations, simplifying the development and management of networking devices. This was covered previously in the [v1.32 release announcement blog](/blog/2024/12/11/kubernetes-v1-32-release/#dra-standardized-network-interface-data-for-resource-claim-status).
 
 This work was done as part of [KEP-4817: DRA: Resource Claim Status with possible standardized network interface data](https://kep.k8s.io/4817) led by SIG Network, SIG Node, and WG Device Management.
 
@@ -193,7 +193,7 @@ This work was done as part of [KEP-3257: ClusterTrustBundles (previously Trust A
 ### Fine-grained SupplementalGroups control
 
 Introduced in v1.31, this feature graduates to beta in v1.33 and is now enabled by default. Provided that your cluster has the `SupplementalGroupsPolicy` feature gate
-enabled, the `supplementalGroupsPolicy` field within a Pod's `securityContext` offers two options:
+enabled, the `supplementalGroupsPolicy` field within a Pod's `securityContext` supports two policies:
 the default Merge policy maintains backward compatibility by combining specified groups with those from the container image's `/etc/group` file, whereas the new Strict policy applies only to explicitly defined groups.
 
 This enhancement helps to address security concerns where implicit group memberships from container images could lead to unintended file access permissions and bypass policy controls.
@@ -208,7 +208,7 @@ This work was done as part of [KEP-4639: VolumeSource: OCI Artifact and/or Image
 
 ### Support for user namespaces within Linux Pods
 
-One of the oldest open KEPs as of writing is [KEP-127](https://kep.k8s.io/127), Pod security improvement by using Linux [User namespaces](/docs/concepts/workloads/pods/user-namespaces/) for Pods. This KEP was first opened in late 2016, and after multiple iterations, had its alpha release in v1.25, initial beta in v1.30 (where it was disabled by default), and is now part of v1.33, where the feature is available by default.
+One of the oldest open KEPs as of writing is [KEP-127](https://kep.k8s.io/127), Pod security improvement by using Linux [User namespaces](/docs/concepts/workloads/pods/user-namespaces/) for Pods. This KEP was first opened in late 2016, and after multiple iterations, had its alpha release in v1.25, initial beta in v1.30 (where it was disabled by default), and has moved to on-by-default beta as part of v1.33.
 
 This support will not impact existing Pods unless you manually specify `pod.spec.hostUsers` to opt in. As highlighted in the [v1.30 sneak peek blog](/blog/2024/03/12/kubernetes-1-30-upcoming-changes/), this is an important milestone for mitigating vulnerabilities.
 
