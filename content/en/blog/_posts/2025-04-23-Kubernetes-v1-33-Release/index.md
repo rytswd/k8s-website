@@ -454,7 +454,7 @@ Explore upcoming Kubernetes and cloud native events, including KubeCon + CloudNa
 
 You can find the latest KCD details [here](https://www.cncf.io/kcds/).
 
-## Upcoming Release Webinar
+## Upcoming release webinar
 
 [TODO]
 
