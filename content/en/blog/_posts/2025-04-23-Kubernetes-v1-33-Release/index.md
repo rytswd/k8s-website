@@ -456,9 +456,11 @@ You can find the latest KCD details [here](https://www.cncf.io/kcds/).
 
 ## Upcoming release webinar
 
-[TODO]
-
-<RELEASE WEBINAR WILL TAKE PLACE NORMALLY 30 DAYS AFTER RELEASE, ALIGN WITH CNCF TO HIGHLIGHT THE WEBINAR>
+Join members of the Kubernetes v1.33 release team on **Friday, May 16th 2025 at 4:00 PM (UTC)**, to learn about the
+release highlights of this release, as well as deprecations and removals to help plan for upgrades.
+For more information and registration, visit the [event
+page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-133-release/)
+on the CNCF Online Programs site.
 
 ## Get Involved
 
