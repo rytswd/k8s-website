@@ -153,7 +153,7 @@ The VolumePopulator API allows volume populator controllers to register the type
 
 This work was done as part of [KEP-1495: Generic data populators](https://kep.k8s.io/1495) led by SIG Storage.
 
-### Always Honor PersistentVolume Reclaim Policy
+### Always honor PersistentVolume reclaim policy
 
 This enhancement addressed an issue where the Persistent Volume (PV) reclaim policy is not consistently honored, leading to potential storage resource leaks. Specifically, if a PV is deleted before its associated Persistent Volume Claim (PVC), the "Delete" reclaim policy may not be executed, leaving the underlying storage assets intact. To mitigate this, Kubernetes now sets finalizers on relevant PVs, ensuring that the reclaim policy is enforced regardless of the deletion sequence. This enhancement prevents unintended retention of storage resources and maintains consistency in PV lifecycle management.
 
